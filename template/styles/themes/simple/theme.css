@@ -1,0 +1,70 @@
+:root {
+    --mainColor: #085b74;
+    --secondaryColor: #888999;
+}
+
+html, body {
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+}
+
+header {
+    width: 30%;
+    flex-direction: column;
+    background-color: var(--mainColor);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 165px 16px 16px 16px;
+    box-sizing: border-box;
+    position: absolute;
+}
+
+header .profileImage {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+}
+
+header a {
+    color: #FFFFFF;
+}
+
+main .sidebar {
+    width: 30%;
+    background-color: var(--mainColor);
+    color: #FFFFFF;
+    flex-grow: 1;
+    flex-shrink: 0;
+    padding: 500px 16px 16px;
+    box-sizing: border-box;
+}
+
+main .mainSection {
+    padding: 16px;
+}
+
+main .employment {
+    border-bottom: 1px solid #BBB;
+    page-break-inside: avoid;
+    page-break-after: auto;
+    padding: 10px 0;
+}
+
+main .mainSection h1, main .mainSection h2, main .mainSection h3, main .mainSection h4 {
+    color: var(--secondaryColor);
+}
+
+main .employment h1 img {
+    width: 60px;
+    float: right;
+}
+
+footer {
+    text-align: right;
+    font-size: 12px;
+    padding-right: 16px;
+    opacity: 0.6;
+}

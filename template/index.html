@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Generated CV</title>
+        <link href="styles/common.css" rel="stylesheet"/>
+        <link href="styles/theme.css" rel="stylesheet"/>
+        <link href="styles/spec.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <header>
+            <div class="title">
+                <sergey-import src="title" as="markdown" />
+            </div>
+            <div class="contact">
+                <sergey-import src="contact" as="markdown" />
+            </div>
+            <img class="profileImage" src="profile.jpg" alt="Profile Image"/>
+        </header>
+        <main>
+            <div class="sidebar">
+                <div class="sidebarContent">
+                    <sergey-import src="references" as="markdown" />
+                    <sergey-import src="other" as="markdown" />
+                </div>
+            </div>
+            <div class="mainSection">
+                <div class="mainInfo">
+                    <sergey-import src="info" as="markdown" />
+                </div>
+                <div class="employmentList">
+                    <h2 class="sectionTitle">Employment History</h2>
+                    <sergey-import src="employment"/>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <sergey-import src="footer" as="markdown" />
+            <div class="generatorMark">Created With <a href="https://github.com/eliotstocker/mdcv">MDCV</a></div>
+        </footer>
+        <div id="bg"></div>
+    </body>
+</html>

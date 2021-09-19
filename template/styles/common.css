@@ -1,0 +1,64 @@
+:root {
+    --generatorDisplay: block;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    font-variant-ligatures: none;
+    -webkit-print-color-adjust: exact !important;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    page-break-after: always;
+}
+
+#bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+main {
+    display: flex;
+}
+
+.sidebar>* {
+    page-break-inside: avoid;
+}
+
+.sidebar>h1, .sidebar>h2 {
+    page-break-before: auto;
+    page-break-inside: avoid;
+}
+
+pb {
+    margin: auto 0;
+    display: block;
+    page-break-after: always;
+    page-break-inside: avoid;
+}
+
+.generatorMark {
+    float: right;
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    font-size: 11px;
+    opacity: 0.6;
+    display: var(--generatorDisplay)
+}

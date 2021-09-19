@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+    --mainColor: #009688;
+    --secondaryColor: #b24d00;
+    --primaryBackgroundRaw: 238, 238, 238;
+    --primaryBackground: rgb(var(--primaryBackgroundRaw));
+    --secondaryBackgroundRaw: 229, 229, 229;
+    --secondaryBackground: rgb(var(--secondaryBackgroundRaw));
+    --textLight: #FFFFFF;
+    --textDark: #333333;
+    --headerSize: 106px;
+    --shadow1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    --shadow2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    --shadow3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+html, body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primaryBackground);
+    color: var(--textDark);
+}
+
+#bg {
+    background-color: var(--primaryBackground);
+}
+
+header {
+    background-color: var(--mainColor);
+    color: var(--textLight);
+    padding: 8px 16px;
+    min-height: 100px;
+    box-shadow: var(--shadow1);
+    box-sizing: border-box;
+    z-index: 10;
+    position: fixed;
+    height: vaR(--headerSize);
+}
+
+header .title h1 {
+    margin: 0;
+}
+
+header .title h2 {
+    margin: 0;
+    font-weight: 300;
+    font-size: 1.2em;
+}
+
+header .profileImage {
+    width: 90px;
+    height: 90px;
+    /*border: 5px var(--textLight) solid;*/
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+header .contact {
+    text-align: right;
+    margin-right: 20px;
+    flex-grow: 1;
+}
+
+header .contact p {
+    margin: 0;
+}
+
+header .contact a {
+    color: var(--textLight);
+}
+
+main {
+    font-weight: 300;
+    padding-bottom: 40px;
+    position: relative;
+    top: calc(var(--headerSize) + 16px);
+}
+
+main .sidebar {
+    font-size: 15px;
+    max-width: 20%;
+    padding: 0 16px 200px 16px;
+    box-sizing: border-box;
+    background-color: var(--secondaryBackground);
+    box-shadow: var(--shadow3);
+    position: relative;
+    top: -16px;
+}
+
+main .sidebar a {
+    color: var(--secondaryColor);
+}
+
+main .sidebar::before {
+    content: "";
+    position: absolute;
+    bottom: -35px;
+    left: 0;
+    right: -25px;
+    height: 200px;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(var(--primaryBackgroundRaw),1) 50%, rgba(var(--primaryBackgroundRaw),0) 100%);
+}
+
+main .sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+main .sidebar ul li {
+    padding: 8px 0;
+}
+
+main .mainSection {
+    font-size: 13px;
+}
+
+main .mainSection a {
+    color: var(--secondaryColor);
+}
+
+main .mainInfo {
+    margin: 0 16px;
+    background-color: white;
+    box-sizing: border-box;
+    border: 1px solid var(--secondaryColor);
+    border-radius: 4px;
+    padding: 8px 16px;
+    z-index: 5;
+    position: relative;
+}
+
+main .mainInfo h1 {
+    border-bottom: none;
+}
+
+main .mainInfo ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+main .mainInfo ul>* {
+    flex: 1 1 120px;
+    flex-grow: 0;
+}
+
+main .mainInfo li {
+    padding: 0 0 0 8px;
+    margin: 3px 0;
+    border-left: 1px solid var(--secondaryColor);
+}
+
+main .sectionTitle {
+    border: none;
+    color: #999999;
+    font-weight: 300;
+    margin: 0;
+}
+
+main .employmentList {
+    padding: 16px;
+}
+
+main .employment {
+    background-color: white;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 16px 0;
+    font-weight: 300;
+    box-sizing: border-box;
+    page-break-after: auto;
+    page-break-inside: avoid;
+    position: relative;
+    z-index: 5;
+}
+
+main .employment h1 img {
+    max-height: 24px;
+    vertical-align: middle;
+    margin-top: -3px;
+    border-radius: 2px;
+}
+
+main .mainInfo::before, main .employment::before {
+    content: "";
+    box-shadow: var(--shadow1);
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-print-color-adjust: exact;
+    filter: opacity(1);
+}
+
+main .employment h1 {
+    margin: 4px -16px;
+    padding: 8px 16px;
+}
+
+/* reset */
+main h1,
+main h2,
+main h3,
+main h4,
+main ul
+{
+    margin: 4px 0;
+}
+
+main .sidebar h1,
+main .sidebar h2,
+main .sidebar h3,
+main .sidebar h4 {
+    padding-top: 24px;
+}
+
+main .sidebar h1:first-child,
+main .sidebar h2:first-child,
+main .sidebar h3:first-child,
+main .sidebar h4:first-child {
+    margin: 4px 0;
+}
+
+
+main h1 {
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--secondaryBackground);
+    padding: 8px 0;
+    color: var(--secondaryColor);
+}
+
+main h2 {
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin: 8px 0;
+    color: var(--secondaryColor);
+}
+
+footer {
+    position: fixed;
+    font-size: 13px;
+    font-weight: 300;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: var(--secondaryBackground);
+    color: var(--secondaryColor);
+    z-index: 7;
+}
+
+footer a {
+    color: var(--secondaryColor);
+}
