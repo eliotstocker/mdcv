@@ -90,6 +90,7 @@ function generateTemplates() {
     return fs.promises.mkdtemp(path.join(os.tmpdir(), 'mdcv-imports-'))
         .then(d =>
             fs.promises.readdir(employmentPath)
+                .then(files => files.filter(path => path.split('.')[1].toLowerCase() == 'md'))
                 .then(files => files.map(path => 'employment/' + path.split('.')[0]))
                 .then(files => files.map(md => `<div class="employment"><sergey-import src="${md}" as="markdown"/></div>`))
                 .then(lines => lines.join('\n'))
@@ -124,23 +125,72 @@ function setupTheme(theme, dir) {
         .then(() => fs.remove(path.resolve(dir, 'styles/themes/')));
 }
 
-function generateSpecStyle({primaryColor: primary, secondaryColor: secondary, 'hide-generator': noGen}, dir) {
+function generateSpecStyle({
+                               primaryColor: primary,
+                               secondaryColor: secondary,
+                               'hide-generator': noGen,
+                               'hide-profile-image': noImage
+                           }, themeDir) {
+    const optional = ['info', 'footer'];
     let specText = ':root {\n';
     if(primary) {
         specText += `--mainColor: #${primary};\n`;
+        const [ph,ps,pl] = hexToHSL(primary);
+        specText += `--mainColorDark: hsl(${ph}deg, ${ps}%, ${pl - 10}%);\n`;
     }
 
     if(secondary) {
         specText += `--secondaryColor: #${secondary};\n`;
+        const [sh,ss,sl] = hexToHSL(secondary);
+        specText += `--secondaryColorDark: hsl(${sh}deg, ${ss}%, ${sl - 10}%);\n`
     }
 
     if(noGen) {
         specText += '--generatorDisplay: none;\n';
     }
 
+    if(noImage) {
+        specText += '--imageDisplay: none;\n'
+    }
+
+    const missingOptional = optional.filter(name => {
+        try {
+            fs.accessSync(path.resolve(dir, `${name}.md`), fs.F_OK);
+            return false; //not missing
+        } catch (e) {
+            return true; //missing
+        }
+    });
+
+    specText += missingOptional.map(file => `--${file}Display: none;`).join('\n');
     specText += '}'
 
-    return fs.promises.writeFile(path.resolve(dir, 'styles', 'spec.css'), specText);
+    return fs.promises.writeFile(path.resolve(themeDir, 'styles', 'spec.css'), specText);
+}
+
+function hexToHSL(hex) {
+    let r = parseInt(hex.slice(0, 2), 16),
+        g = parseInt(hex.slice(2, 4), 16),
+        b = parseInt(hex.slice(4, 6), 16);
+
+    r /= 255, g /= 255, b /= 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+
+    if(max == min){
+        h = s = 0; // achromatic
+    }else{
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max){
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+
+    return [h * 360, s * 100, l * 100];
 }
 
 function copyMedia(tmpTemplate) {
@@ -186,7 +236,6 @@ function startServer(templatePath, importsPath, contentPath) {
 
             return new Promise(resolve => {
                 sergeyInstance.stdout.on('data', d => {
-                    console.log(`${chalk.blueBright('Sergey |')} ${d.toString()}`);
                     if (d.toString().startsWith('Sergey running on http://')) {
                         const address = d.toString().split('http://')[1];
 
@@ -201,6 +250,9 @@ function startServer(templatePath, importsPath, contentPath) {
                                 .then(() => sergeyInstance.kill())
                                 .then(resolve);
                         } else {
+                            console.log(`${chalk.blueBright('Sergey |')} ${d.toString()}`);
+                            
+                            console.log(`${chalk.redBright('Debug |')} Temp files at: ${tmpPublic}`)
                             process.on('SIGINT', function() {
                                 deleteTempDirectories([
                                     templatePath,
@@ -212,6 +264,8 @@ function startServer(templatePath, importsPath, contentPath) {
                                 .then(resolve);
                             });
                         }
+                    } else {
+                        console.log(`${chalk.blueBright('Sergey |')} ${d.toString()}`);
                     }
                 });
 

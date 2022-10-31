@@ -2,7 +2,9 @@
 
 :root {
     --mainColor: #009688;
+    --mainColorDark: #006157;
     --secondaryColor: #b24d00;
+    --secondaryColorDark: #803700;
     --primaryBackgroundRaw: 238, 238, 238;
     --primaryBackground: rgb(var(--primaryBackgroundRaw));
     --secondaryBackgroundRaw: 229, 229, 229;
@@ -247,7 +249,7 @@ main h2 {
     font-weight: 400;
     text-transform: uppercase;
     margin: 8px 0;
-    color: var(--secondaryColor);
+    color: var(--secondaryColorDark);
 }
 
 footer {
@@ -258,10 +260,10 @@ footer {
     width: 100%;
     text-align: center;
     background-color: var(--secondaryBackground);
-    color: var(--secondaryColor);
+    color: var(--mainColorDark);
     z-index: 7;
 }
 
 footer a {
-    color: var(--secondaryColor);
+    color: var(--mainColorDark);
 }
