@@ -280,7 +280,7 @@ function generate(address) {
     console.log(`${chalk.greenBright('Puppeteer |')} Starting PDF generation...`);
     return puppeteer.launch()
         .then(browser => browser.newPage()
-            .then(page => page.goto(`http://${address}`)
+            .then(page => page.goto(`http://${address}`, {waitUntil: 'networkidle2'})
                 .then(() => page.pdf({
                     path: `${outputDir}/cv.pdf`,
                     format: 'A4',
@@ -295,7 +295,7 @@ function generate(address) {
 }
 
 checkRequiredFilesPromise()
-    .then(Promise.all([
+    .then(() => Promise.all([
         copyTemplates(),
         generateTemplates(),
         copyContent()
