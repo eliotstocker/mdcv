@@ -227,6 +227,7 @@ function startServer(templatePath, importsPath, contentPath) {
 
             const sergeyInstance = spawn(sergeyPath, [
                 `--watch`,
+                `--port=56381`,
                 `--imports=${imports}`,
                 `--output=${output}`,
                 `--content=${content}`
