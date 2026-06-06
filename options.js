@@ -55,6 +55,11 @@ module.exports = [
         description: 'boot the server only, and leave running to connect to from a web browser, {bold does not generate a PDF}'
     },
     {
+        name: 'no-sandbox',
+        type: Boolean,
+        description: 'disable the puppeteer sandbox (useful for CI or Ubuntu 23.10+)'
+    },
+    {
         name: 'help',
         alias: 'h',
         type: Boolean,
