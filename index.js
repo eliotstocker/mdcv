@@ -279,7 +279,15 @@ function startServer(templatePath, importsPath, contentPath) {
 
 function generate(address) {
     console.log(`${chalk.greenBright('Puppeteer |')} Starting PDF generation...`);
-    return puppeteer.launch()
+    
+    const launchOptions = {};
+    if (process.env.GITHUB_ACTIONS || process.env.CI) {
+        console.log(`${chalk.blueBright('Puppeteer |')} CI environment detected, switching to headless shell and disabling sandbox...`);
+        launchOptions.headless = 'shell';
+        launchOptions.args = ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'];
+    }
+
+    return puppeteer.launch(launchOptions)
         .then(browser => browser.newPage()
             .then(page => page.goto(`http://${address}`, {waitUntil: 'networkidle2'})
                 .then(() => page.pdf({
