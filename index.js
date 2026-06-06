@@ -281,8 +281,8 @@ function generate(address) {
     console.log(`${chalk.greenBright('Puppeteer |')} Starting PDF generation...`);
     
     const launchOptions = {};
-    if (process.env.GITHUB_ACTIONS || process.env.CI) {
-        console.log(`${chalk.blueBright('Puppeteer |')} CI environment detected, switching to headless shell and disabling sandbox...`);
+    if (process.env.GITHUB_ACTIONS || process.env.CI || opts['no-sandbox']) {
+        console.log(`${chalk.blueBright('Puppeteer |')} Headless environment detected or no-sandbox requested, switching to headless shell and disabling sandbox...`);
         launchOptions.headless = 'shell';
         launchOptions.args = ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'];
     }
